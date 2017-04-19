@@ -1,0 +1,37 @@
+/*
+ *場外乱闘
+http://www.nurs.or.jp/~sug/soft/tora/tora13.htm
+
+void (*signal(int signum, void (*handler)(int)))(int);
+という難解な宣言があり、以下のようにして使うらしい。
+
+void ctrl_C_handler( int signo ) {
+        write( 2, "Ctrl+C pressed\n", 15 );
+}
+
+void main()
+{
+        signal( SIGINT, ctrl_C_handler );
+        while( 1 );
+}
+
+宣言の解読
+void (*signal(int signum, void (*handler)(int)))(int);
+signal( この時点で単なる関数宣言。もし*signal)となっていれば関数ポインタ
+int signum 第一引数は単なるint型
+void (*handler)(int) 第二引数は単なる関数ポインタ
+残されたvoid (*)(int)は単なる戻値型(関数ポインタ)
+
+
+参考
+http://d.hatena.ne.jp/mickey24/20090103/1230921311
+
+
+typedef void (*sig_t)(int);
+sig_t signal(int sig, sig_t func);
+
+typedefすると分かりやすいらしい。
+ *
+ *
+ *
+ */
